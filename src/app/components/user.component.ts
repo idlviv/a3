@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'my-app',
+  selector: 'user',
   template: `
     <h1>Hello {{name}}</h1>
     <p><strong>E-mail </strong>{{email}}</p>
@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
     <p>Street: {{address.street}}</p>
 `,
 })
-export class AppComponent  {
+export class UserComponent {
   name = 'Angular';
   email = 'e@mail.com';
   address = {
