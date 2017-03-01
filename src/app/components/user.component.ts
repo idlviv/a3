@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
-// import { PostsService } from '../services/posts.service';
+import { PostsService } from '../services/posts.service';
 
+// interface for our adress object
 interface IAddress {
   city: string;
   street: string;
+}
+
+// interface for data from jsonplaceholder site
+interface IPost {
+  id: number;
+  title: string;
+  body: string;
 }
 
 @Component({
@@ -31,7 +39,14 @@ interface IAddress {
       <label name="label2">Email </label><br/>
       <input type="text" name="email" [(ngModel)]="email"><br/>
     </form>
-`,
+    <hr>
+    <h3>Posts </h3>
+    <div *ngFor="let post of posts">
+      <h3>{{post.title}}</h3>
+      <p>{{post.body}}</p>
+    </div>
+  `,
+  providers: [PostsService],
 })
 export class UserComponent {
   name: string;
@@ -39,8 +54,9 @@ export class UserComponent {
   address: IAddress;
   hobbies: string[];
   showHobbies: boolean;
+  posts: IPost[];
 
-  constructor() {
+  constructor(private postsService: PostsService) {
     this.name = 'Angular';
     this.email = 'e@mail.com';
     this.address = {
@@ -49,6 +65,10 @@ export class UserComponent {
     };
     this.hobbies = ['sport', 'travel'];
     this.showHobbies = false;
+
+    this.postsService.getPosts().subscribe(posts => {
+      this.posts = posts;
+    });
   }
 
   toggleHobbies() {
